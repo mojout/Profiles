@@ -1,3 +1,4 @@
+{% load pages_tags %}
 {% load static %}
 <!DOCTYPE html> <html>
 <head>
@@ -14,6 +15,18 @@
 </div>
 <div id="sidebar">
 <h2>IT Blog</h2>
-<p>This is my blog.</p> </div>
+<p>На данный момент опубликовано статей - {% total_posts %}</p>
+<h3>Последние статьи:</h3>
+    {% show_latest_posts  %}
+<h3>Самые комментируемые статьи:</h3>
+    {% get_most_commented_posts as most_commented_posts %}
+    <ul>
+        {% for post in most_commented_posts %}
+    <li>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </li>
+        {% endfor %}
+    </ul>
+</div>
 </body>
 </html>
