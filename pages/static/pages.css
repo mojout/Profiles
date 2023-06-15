@@ -5,7 +5,7 @@ body {
 }
 
 a {
-    color:#00abff;
+    color: rgba(11, 141, 76, 0.79);
     text-decoration:none;
 }
 
@@ -65,7 +65,7 @@ input, textarea {
 }
 input[type=submit] {
     font-weight:bold;
-    background:#00abff;
+    background: rgba(11, 141, 76, 0.79);
     color:#fff;
     padding:10px 20px;
     font-size:14px;
