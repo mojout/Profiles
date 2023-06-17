@@ -14,8 +14,9 @@
     {% endblock %}
 </div>
 <div id="sidebar">
-<h2>IT Blog</h2>
+<h2>Последние обновления</h2>
 <p>На данный момент опубликовано статей - {% total_posts %}</p>
+    <strong><a href="{% url 'pages:post_feed' %}">Подпишитесь на ленту RSS</a></strong>
 <h3>Последние статьи:</h3>
     {% show_latest_posts  %}
 <h3>Самые комментируемые статьи:</h3>

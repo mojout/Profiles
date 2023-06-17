@@ -6,10 +6,10 @@ class EmailPostForm(forms.Form):
 
     """Форма для отправки ссылки на пост по email"""
 
-    name = forms.CharField(max_length=25)
-    email = forms.EmailField()
-    to = forms.EmailField()
-    comments = forms.CharField(required=False, widget=forms.Textarea)
+    name = forms.CharField(max_length=25, label='Ваше имя')
+    email = forms.EmailField(label='Ваш email')
+    to = forms.EmailField(label='email получателя')
+    comments = forms.CharField(required=False, label='Комментарий к письму', widget=forms.Textarea)
 
 
 class CommentForm(forms.ModelForm):

@@ -1,11 +1,12 @@
 {% extends "pages/base.html" %}
+{% load pages_tags %}
 
 {% block title %}
-    IT Blog
+    IT DIGEST PROFILES
 {% endblock %}
 
 {% block content %}
-  <h1>IT Blog</h1>
+  <h1>IT DIGEST</h1>
     {% if tag %}
         <h2>Посты с тегом {{ tag.name }}</h2>
     {% endif %}
@@ -29,7 +30,7 @@
     <p class="date">
       Published {{ post.publish }} by {{ post.author }}
     </p>
-    {{ post.body|truncatewords:30|linebreaks }}
+    {{ post.body|markdown|truncatewords_html:30 }}
   {% endfor %}
   {% include "pagination.html" with page=posts %}
 {% endblock %}

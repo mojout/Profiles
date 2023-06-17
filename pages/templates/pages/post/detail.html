@@ -1,4 +1,5 @@
 {% extends "pages/base.html" %}
+{% load pages_tags %}
 
 {% block title %}
     {{ post.title }}
@@ -9,7 +10,7 @@
   <p class="date">
     Published {{ post.publish }} by {{ post.author }}
   </p>
-  {{ post.body|linebreaks }}
+  {{ post.body|markdown }}
     <p>
     <a href="{% url "pages:post_share" post.id %}">Поделиться этим постом</a>
     </p>
