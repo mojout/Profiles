@@ -2,11 +2,11 @@ body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    background-color: #ffffff;
+    background-color: rgb(255, 255, 255);
 }
 
 a {
-    color: rgba(11, 141, 76, 0.79);
+    color: rgb(9, 96, 33);
     text-decoration:none;
 }
 
@@ -33,10 +33,13 @@ h2 {
     padding:10px;
     background: #ffffff;
     height:100%;
+    margin-top: 30px;
 }
-
+p {
+    color: #030303;
+}
 p.date {
-    color:#ccc;
+    color: #030303;
     font-family: georgia, serif;
     font-size: 12px;
     font-style: italic;
@@ -46,6 +49,7 @@ p.date {
 .pagination {
     margin:40px 0;
     font-weight:bold;
+    color: #030303;
 }
 
 /* forms */
@@ -90,4 +94,8 @@ input[type=submit] {
     font-weight:bold;
     font-size:12px;
     color:#666;
+}
+h1.title-main {
+    color: #0d812d;
+    text-align: center;
 }

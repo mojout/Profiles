@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+    <h1 class="title-main"><a href="{% url "pages:post_list" %}">На главную страницу</a></h1>
   <h1>{{ post.title }}</h1>
   <p class="date">
     Published {{ post.publish }} by {{ post.author }}

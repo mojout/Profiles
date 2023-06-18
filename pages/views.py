@@ -1,13 +1,12 @@
 import os
-
+from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from taggit.models import Tag
-from .models import Post, Comment
+from .models import Post
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, SearchForm
 from django.db.models import Count
 
 
@@ -39,7 +38,6 @@ def post_list(request, tag_slug=None):
 
 
 def post_detail(request, year, month, day, post):
-
     """
     Пояснение к агрегированному подсчету тегов через 'Count': 'post_tags_ids' - с помощью атрибута 'flat=True'
     получаем список идентификаторов тегов текущего поста, через запятую([1,2,3]). 'similar_posts' - берем все посты,
@@ -101,7 +99,6 @@ def post_share(request, post_id):
 
 @require_POST
 def post_comment(request, post_id):
-
     """
     Идея: комментирование постов.
     Функционал: Даем представлению разрешение на метод 'POST'. Извлекаем пост со
@@ -121,3 +118,24 @@ def post_comment(request, post_id):
                   {'post': post,
                    'form': form,
                    'comment': comment})
+
+
+def post_search(request):
+
+    """Функция поиска будет работать только с БД postgresql, так как были использованы объекты SearchVector
+    дистрибутива postgres. Поиск по полям 'title' и 'body'. """
+
+    form = SearchForm()
+    query = None
+    results = []
+
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Post.published.annotate(search=SearchVector('title', 'body'), ) \
+                .filter(search=query)
+    return render(request, 'pages/post/search.html',
+                  {'form': form,
+                   'query': query,
+                   'results': results})
