@@ -32,7 +32,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-media/
 env/
 venv/
 build/
