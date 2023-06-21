@@ -8,6 +8,12 @@ from .models import Post
 from django.views.decorators.http import require_POST
 from .forms import EmailPostForm, CommentForm, SearchForm
 from django.db.models import Count
+import redis
+from django.conf import settings
+
+r = redis.Redis(host=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
+                db=settings.REDIS_DB)
 
 
 def post_list(request, tag_slug=None):
@@ -59,11 +65,14 @@ def post_detail(request, year, month, day, post):
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
 
+    total_views = r.incr(f'Post:{post.id}:views')
+
     return render(request, 'pages/post/detail.html',
                   {'post': post,
                    'comments': comments,
                    'form': form,
-                   'similar_posts': similar_posts})
+                   'similar_posts': similar_posts,
+                   'total_views': total_views})
 
 
 def post_share(request, post_id):
@@ -121,7 +130,6 @@ def post_comment(request, post_id):
 
 
 def post_search(request):
-
     """Функция поиска будет работать только с БД postgresql, так как были использованы объекты SearchVector
     дистрибутива postgres. Поиск по полям 'title' и 'body'. """
 
