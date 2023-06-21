@@ -2,6 +2,10 @@
 The application is quite simple, but the most functional in the area of working with content and search.
 A functionality for displaying articles, commenting and recommending articles by e-mail has been implemented.
 The application was originally developed on a standard sqlite database, and further migrations were made to the Postgresql server to use full-text search.
+
+### Last updates:
+* Added article view counter, it increases by 1 every time the page is loaded. Redis was used.
+
 ### The ERD database diagram looks like this:
 ![Screenshot](https://github.com/DmitryZZZZZZ/Profiles/blob/master/media/images/ERD_pages.png)
 ### The main page displays a content block and a slidebar:
